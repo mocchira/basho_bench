@@ -31,16 +31,16 @@
 %% ====================================================================
 
 new(_Id) ->
-    {ok, Table} = cherly:start(1024 * 1024 * 15),
+    Table = cherly:start(1024 * 1024 * 200),
     {ok, Table}.
 
 run(get, KeyGen, _ValueGen, Table) ->
     Key = KeyGen(),
     LKey = integer_to_list(Key),
     case cherly:get(Table, LKey) of
-        not_found ->
+        none ->
             {ok, Table};
-        {ok, _Val} ->
+        _Val ->
             {ok, Table}
     end;
 run(put, KeyGen, ValueGen, Table) ->

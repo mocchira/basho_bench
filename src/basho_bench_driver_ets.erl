@@ -30,8 +30,9 @@
 %% API
 %% ====================================================================
 
-new(_Id) ->
-    Table = ets:new(table, [set,public,{read_concurrency,true}]),
+new(Id) ->
+    Tid = list_to_atom(integer_to_list(Id)),
+    Table = ets:new(Tid, [set,public,{read_concurrency,true}]),
     {ok, Table}.
 
 run(get, KeyGen, _ValueGen, Table) ->
